@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row h-75">
     <div class="col-12 weather text-right" v-if="weather.main">
       <h3 class="mt-4 mr-3">{{ convertTemp(weather.main.temp) }}°F</h3>
       <h3 class="n mr-3">

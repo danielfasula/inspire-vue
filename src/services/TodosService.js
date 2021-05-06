@@ -21,6 +21,14 @@ class TodosService {
       logger.log(error)
     }
   }
+
+  async changeCompletion(id) {
+    try {
+      await api.put('fasula/todos' + id)
+    } catch (error) {
+      logger.log(error)
+    }
+  }
 }
 
 export const todosService = new TodosService()

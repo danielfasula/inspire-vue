@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row d-flex justify-content-center">
     <div class="col-10">
       <div class="card bg-dark text-white">
         <form @submit.prevent="createTodo">
@@ -20,23 +20,31 @@
         </form>
         <div class="text-center">
           <h4>Todos</h4>
-          <h6>Completed: <span id="total-todos"></span></h6>
+          <h6>
+            Completed:
+            {{ state.todos.filter((t) => t.completed == true).length }} /
+            {{ state.todos.length }}
+          </h6>
         </div>
-        <ul class="list-group list-group-flush scroll" id="todos"></ul>
+        <ul class="list-group list-group-flush scroll">
+          <todo v-for="todo in state.todos" :key="todo.id" :todo="todo" />
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { todosService } from '../services/TodosService'
+import { AppState } from '../AppState'
 export default {
   name: 'Todos',
   props: [],
   setup() {
     const state = reactive({
+      todos: computed(() => AppState.todos),
       newTodo: {}
     })
     return {
@@ -50,7 +58,6 @@ export default {
         }
       }
     }
-  },
-  components: {}
+  }
 }
 </script>
